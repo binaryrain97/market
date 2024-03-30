@@ -18,4 +18,9 @@ public class FirstController {
         model.addAttribute("randomQuote", "1234");
         return "quote";
     }
+
+    @GetMapping("/")
+    public String home() {
+        return "redirect:/board/list";
+    }
 }

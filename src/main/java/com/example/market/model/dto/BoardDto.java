@@ -9,12 +9,12 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-public class BoardForm {
+public class BoardDto {
     private Long id;
     private String title;
     private String content;
 
-    public Board toEntity()  {
-        return new Board(id, title, content);
+    public static BoardDto toDto(Board board) {
+        return new BoardDto(board.getId(), board.getTitle(), board.getTitle());
     }
 }

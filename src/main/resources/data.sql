@@ -1,0 +1,1 @@
+INSERT INTO board(id, title, content) VALUES(1, '가가가가', '1111');
