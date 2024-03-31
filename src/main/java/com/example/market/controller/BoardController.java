@@ -2,7 +2,6 @@ package com.example.market.controller;
 
 import com.example.market.model.dto.BoardDto;
 import com.example.market.model.dto.BoardForm;
-import com.example.market.model.entity.Board;
 import com.example.market.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +31,7 @@ public class BoardController {
     @PostMapping("/create")
     public String createBoard(BoardForm form) {
         log.info(form.toString());
-        Board saved = boardService.createBoard(form);
+        BoardDto saved = boardService.createBoard(form);
         return "redirect:/board/" + saved.getId();
     }
 
@@ -61,7 +60,7 @@ public class BoardController {
 
     @PostMapping("/update")
     public String update(BoardForm form) {
-        BoardDto updated = this.boardService.update(form);
+        BoardDto updated = this.boardService.update(form.getId(), form);
         log.info(updated.toString());
         return "redirect:/board/" + updated.getId();
     }

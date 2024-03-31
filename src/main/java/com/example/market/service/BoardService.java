@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -15,8 +16,8 @@ import java.util.Optional;
 public class BoardService {
     private final BoardRepository boardRepository;
 
-    public Board createBoard(BoardForm form) {
-        return boardRepository.save(form.toEntity());
+    public BoardDto createBoard(BoardForm form) {
+        return BoardDto.toDto(boardRepository.save(form.toEntity()));
     }
 
     public BoardDto getDetail(Long id) {
@@ -30,15 +31,21 @@ public class BoardService {
                 .stream().map(BoardDto::toDto).toList();
     }
 
-    public BoardDto update(BoardForm form) {
+    public BoardDto update(Long id, BoardForm form) {
+        Board board = form.toEntity();
         Optional<Board> target = this.boardRepository.findById(form.getId());
-        if(target.isEmpty()) throw new RuntimeException();
-        Board updated = this.boardRepository.save(form.toEntity());
+        if(target.isEmpty() || !Objects.equals(target.get().getId(), form.getId()))
+            throw new RuntimeException();
+        Board targetBoard = target.get();
+        targetBoard.patch(form.toEntity());
+        Board updated = this.boardRepository.save(targetBoard);
         return BoardDto.toDto(updated);
     }
 
-    public void delete(Long id) {
-        Optional<Board> target = this.boardRepository.findById(id);
-        if(target.isPresent()) this.boardRepository.delete(target.get());
+    public BoardDto delete(Long id) {
+        Board target = this.boardRepository.findById(id).orElse(null);
+        if(target == null) return null;
+        this.boardRepository.delete(target);
+        return BoardDto.toDto(target);
     }
 }

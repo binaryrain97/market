@@ -2,29 +2,27 @@ package com.example.market.model.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
+@Getter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Builder
-public class Board {
-
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    private String title;
+    @ManyToOne
+    @JoinColumn(name="board_id")
+    private Board board;
 
     @Column
-    private String content;
+    private String nickname;
 
-    public void patch(Board board) {
-        if(board.getTitle() != null) this.title = board.getTitle();
-        if(board.getContent() != null) this.content = board.getContent();
-    }
+    @Column
+    private String body;
 }
