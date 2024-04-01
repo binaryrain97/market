@@ -2,7 +2,9 @@ package com.example.market.controller;
 
 import com.example.market.model.dto.BoardDto;
 import com.example.market.model.dto.BoardForm;
+import com.example.market.model.dto.CommentDto;
 import com.example.market.service.BoardService;
+import com.example.market.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,7 @@ import java.util.List;
 public class BoardController {
 
     private final BoardService boardService;
+    private final CommentService commentService;
 
     @GetMapping("/new")
     public String newBoardForm() {
@@ -46,7 +49,9 @@ public class BoardController {
     public String getDetail(@PathVariable Long id,
                             Model model) {
         BoardDto dto = boardService.getDetail(id);
+        List<CommentDto> commentDtos = commentService.comments(id);
         model.addAttribute("board", dto);
+        model.addAttribute("commentDtos", commentDtos);
         return "board/show";
     }
 

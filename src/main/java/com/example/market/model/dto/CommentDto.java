@@ -11,7 +11,7 @@ import lombok.*;
 @ToString
 public class CommentDto {
     private Long id;
-    private Long articleId;
+    private Long boardId;
     private String nickname;
     private String body;
 
