@@ -19,7 +19,7 @@ public class CommentDto {
         return new CommentDto(
                 comment.getId(),
                 comment.getBoard().getId(),
-                comment.getBody(),
+                comment.getNickname(),
                 comment.getBody()
         );
     }
