@@ -52,18 +52,18 @@
 
 <script>
     {
-    const commentEditModal = document.querySelector("#comment-edit-modal");
-    commentEditModal.addEventListener("show.bs.modal", function(event) {
-        const triggerBtn = event.relatedTarget;
-        const id = triggerBtn.getAttribute("data-bs-id");
-        const nickname = triggerBtn.getAttribute("data-bs-nickname");
-        const body = trigger.Btn.getAttribute("data-bs-body");
-        const boardId = triggerBtn.getAttribute("data-bs-board-id");
-        document.querySelector("#edit-comment-nickname").value = nickname;
-        document.querySelector("#edit-comment-body").value = body;
-        document.querySelector("#edit-comment-id").value = id;
-        document.querySelector("#edit-comment-board-id").value = boardId;
-    });
+        const commentEditModal = document.querySelector("#comment-edit-modal");
+        commentEditModal.addEventListener("show.bs.modal", function(event) {
+            const triggerBtn = event.relatedTarget;
+            const id = triggerBtn.getAttribute("data-bs-id");
+            const nickname = triggerBtn.getAttribute("data-bs-nickname");
+            const body = triggerBtn.getAttribute("data-bs-body");
+            const boardId = triggerBtn.getAttribute("data-bs-board-id");
+            document.querySelector("#edit-comment-nickname").value = nickname;
+            document.querySelector("#edit-comment-body").value = body;
+            document.querySelector("#edit-comment-id").value = id;
+            document.querySelector("#edit-comment-board-id").value = boardId;
+        });
     }
     {
         const commentUpdateBtn = document.querySelector("#comment-update-btn");
@@ -71,10 +71,22 @@
             const comment = {
                 id: document.querySelector("#edit-comment-id").value,
                 nickname: document.querySelector("#edit-comment-nickname").value,
-                body: document.querySelector("edit-comment-body").value,
+                body: document.querySelector("#edit-comment-body").value,
                 board_id: document.querySelector("#edit-comment-board-id").value
             }
             console.log(comment);
+            const url = "/api/comment/" + comment.id;
+            fetch(url, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(comment)
+            }).then(response => {
+                const msg = (response.ok) ? "댓글 수정 완료" : "댓글 수정 실패";
+                alert(msg);
+                window.location.reload();
+            });
         });
     }
 </script>
@@ -86,7 +98,7 @@
                 const commentDeleteBtn = event.target;
                 const commentId = commentDeleteBtn.getAttribute("data-comment-id");
                 console.log("삭제 버튼 클릭");
-                const url = '/api/comment/${commentId}';
+                const url = "/api/comment/" + commentId;
                 fetch(url, {
                     method: "DELETE"
                 }).then(response => {
@@ -94,9 +106,12 @@
                         alert("댓글 삭제 실패..!");
                         return;
                     }
-                const target = document.querySelector('#comments-${commentId}');
+                const target = document.querySelector("#comments-" + commentId);
                 target.remove();
+                const msg = commentId + "번 댓글을 삭제";
+                alert(msg);
                 window.location.reload();
+                });
             });
         });
     }
