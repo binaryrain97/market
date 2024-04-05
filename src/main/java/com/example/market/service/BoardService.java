@@ -3,7 +3,9 @@ package com.example.market.service;
 import com.example.market.model.dto.BoardDto;
 import com.example.market.model.dto.BoardForm;
 import com.example.market.model.entity.Board;
+import com.example.market.model.entity.Member;
 import com.example.market.repository.BoardRepository;
+import com.example.market.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +17,14 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class BoardService {
     private final BoardRepository boardRepository;
+    private final MemberRepository memberRepository;
 
-    public BoardDto createBoard(BoardForm form) {
-        return BoardDto.toDto(boardRepository.save(form.toEntity()));
+    public BoardDto createBoard(BoardForm form, String userId) {
+        Optional<Member> _member = this.memberRepository.findByUserId(userId);
+        if(_member.isEmpty()) throw new RuntimeException("잘못된 세션");
+        Member member = _member.get();
+        Board board = new Board(null, form.getTitle(), form.getContent(), member);
+        return BoardDto.toDto(boardRepository.save(board));
     }
 
     public BoardDto getDetail(Long id) {
@@ -32,13 +39,12 @@ public class BoardService {
     }
 
     public BoardDto update(Long id, BoardForm form) {
-        Board board = form.toEntity();
-        Optional<Board> target = this.boardRepository.findById(form.getId());
-        if(target.isEmpty() || !Objects.equals(target.get().getId(), form.getId()))
+        Optional<Board> _target = this.boardRepository.findById(form.getId());
+        if(_target.isEmpty() || !Objects.equals(_target.get().getId(), form.getId()))
             throw new RuntimeException();
-        Board targetBoard = target.get();
-        targetBoard.patch(form.toEntity());
-        Board updated = this.boardRepository.save(targetBoard);
+        Board target = _target.get();
+        target.patch(form);
+        Board updated = this.boardRepository.save(target);
         return BoardDto.toDto(updated);
     }
 

@@ -11,11 +11,13 @@ import lombok.*;
 @ToString
 public class MemberDto {
     private String userId;
+    private String nickname;
     private String password;
 
     public static MemberDto toDto(Member member) {
         return MemberDto.builder()
                 .userId(member.getUserId())
+                .nickname(member.getNickname())
                 .password(member.getPassword())
                 .build();
     }

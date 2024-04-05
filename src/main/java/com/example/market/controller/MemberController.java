@@ -29,7 +29,7 @@ public class MemberController {
 
     @PostMapping("/new")
     public String signUp(MemberDto dto) {
-        this.memberService.create(dto.getUserId(), dto.getPassword());
+        this.memberService.create(dto.getUserId(), dto.getNickname(), dto.getPassword());
         return "redirect:/board/list";
     }
 

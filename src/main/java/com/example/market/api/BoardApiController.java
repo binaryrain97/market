@@ -25,13 +25,13 @@ public class BoardApiController {
         return this.boardService.getDetail(id);
     }
 
-    @PostMapping("/api/board")
-    public ResponseEntity<BoardDto> create(@RequestBody BoardForm form) {
-        BoardDto created = this.boardService.createBoard(form);
-        return (created != null) ?
-                ResponseEntity.status(HttpStatus.OK).body(created):
-                ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-    }
+//    @PostMapping("/api/board")
+//    public ResponseEntity<BoardDto> create(@RequestBody BoardForm form) {
+//        BoardDto created = this.boardService.createBoard(form);
+//        return (created != null) ?
+//                ResponseEntity.status(HttpStatus.OK).body(created):
+//                ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+//    }
 
     @PatchMapping("/api/board/{id}")
     public ResponseEntity<BoardDto> update(@PathVariable Long id,

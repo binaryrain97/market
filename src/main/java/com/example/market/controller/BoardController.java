@@ -7,6 +7,7 @@ import com.example.market.service.BoardService;
 import com.example.market.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -32,16 +34,20 @@ public class BoardController {
     }
 
     @PostMapping("/create")
-    public String createBoard(BoardForm form) {
+    @PreAuthorize("isAuthenticated()")
+    public String createBoard(BoardForm form, Principal principal) {
         log.info(form.toString());
-        BoardDto saved = boardService.createBoard(form);
+        BoardDto saved = boardService.createBoard(form, principal.getName());
         return "redirect:/board/" + saved.getId();
     }
 
     @GetMapping("/list")
-    public String index(Model model) {
+    public String index(Principal principal, Model model) {
         List<BoardDto> dtoList = this.boardService.getIndex();
         model.addAttribute("boardList", dtoList);
+        if(principal != null) {
+            model.addAttribute("userId", principal.getName());
+        }
         return "board/index";
     }
 

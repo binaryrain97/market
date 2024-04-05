@@ -1,5 +1,6 @@
 package com.example.market.model.entity;
 
+import com.example.market.model.dto.BoardForm;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,8 +24,11 @@ public class Board {
     @Column
     private String content;
 
-    public void patch(Board board) {
-        if(board.getTitle() != null) this.title = board.getTitle();
-        if(board.getContent() != null) this.content = board.getContent();
+    @ManyToOne
+    private Member member;
+
+    public void patch(BoardForm form) {
+        if(form.getTitle() != null) this.title = form.getTitle();
+        if(form.getContent() != null) this.content = form.getContent();
     }
 }

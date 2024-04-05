@@ -13,8 +13,14 @@ public class BoardDto {
     private Long id;
     private String title;
     private String content;
+    private MemberDto author;
 
     public static BoardDto toDto(Board board) {
-        return new BoardDto(board.getId(), board.getTitle(), board.getTitle());
+        return BoardDto.builder()
+                .id(board.getId())
+                .title(board.getTitle())
+                .content(board.getContent())
+                .author(MemberDto.toDto(board.getMember()))
+                .build();
     }
 }

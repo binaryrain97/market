@@ -2,7 +2,10 @@ package com.example.market.model.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -14,5 +17,10 @@ public class Member {
     @Id
     private String userId;
 
+    private String nickname;
+
     private String password;
+
+    @OneToMany
+    private List<Board> boardList;
 }
