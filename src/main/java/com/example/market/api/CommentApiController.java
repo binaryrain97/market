@@ -5,8 +5,10 @@ import com.example.market.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -21,10 +23,12 @@ public class CommentApiController {
         return ResponseEntity.status(HttpStatus.OK).body(dtos);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/api/board/{boardId}/comment")
     public ResponseEntity<CommentDto> create(@PathVariable Long boardId,
-                                             @RequestBody CommentDto dto) {
-        CommentDto createdDto = this.commentService.create(boardId, dto);
+                                             @RequestBody CommentDto dto,
+                                             Principal principal) {
+        CommentDto createdDto = this.commentService.create(boardId, dto, principal.getName());
         return ResponseEntity.status(HttpStatus.OK).body(createdDto);
     }
 

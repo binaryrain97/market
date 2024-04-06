@@ -3,8 +3,10 @@ package com.example.market.service;
 import com.example.market.model.dto.CommentDto;
 import com.example.market.model.entity.Board;
 import com.example.market.model.entity.Comment;
+import com.example.market.model.entity.Member;
 import com.example.market.repository.BoardRepository;
 import com.example.market.repository.CommentRepository;
+import com.example.market.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +19,7 @@ public class CommentService {
 
     private final CommentRepository commentRepository;
     private final BoardRepository boardRepository;
+    private final MemberRepository memberRepository;
 
     public List<CommentDto> comments(Long boardId) {
         List<Comment> comments = commentRepository.findAllByBoardId(boardId);
@@ -24,9 +27,12 @@ public class CommentService {
     }
 
     @Transactional
-    public CommentDto create(Long boardId, CommentDto dto) {
+    public CommentDto create(Long boardId, CommentDto dto, String userId) {
         Board board = this.boardRepository.findById(boardId)
                 .orElseThrow(() -> new IllegalArgumentException("댓글 생성 실패"));
+        Member member = this.memberRepository.findByUserId(userId)
+                .orElseThrow(() -> new IllegalArgumentException("댓글 생성 실패"));
+        dto.setNickname(member.getNickname());
         Comment comment = Comment.createComment(dto, board);
         Comment created = commentRepository.save(comment);
         return CommentDto.toDto(created);

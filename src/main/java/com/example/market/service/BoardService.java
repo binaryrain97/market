@@ -9,6 +9,7 @@ import com.example.market.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -23,7 +24,7 @@ public class BoardService {
         Optional<Member> _member = this.memberRepository.findByUserId(userId);
         if(_member.isEmpty()) throw new RuntimeException("잘못된 세션");
         Member member = _member.get();
-        Board board = new Board(null, form.getTitle(), form.getContent(), member);
+        Board board = new Board(null, form.getTitle(), form.getContent(), member, LocalDateTime.now());
         return BoardDto.toDto(boardRepository.save(board));
     }
 

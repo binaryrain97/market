@@ -1,10 +1,10 @@
 <div class="card m-2" id="comments-new">
     <div class="card-body">
         <form>
-            <div class="mb-3">
-                <label class="form-label">닉네임</label>
-                <input type="text" class="form-control" id="new-comment-nickname">
-            </div>
+<!--            <div class="mb-3">-->
+<!--                <label class="form-label">닉네임</label>-->
+<!--                <input type="text" class="form-control" id="new-comment-nickname">-->
+<!--            </div>-->
             <div class="mb-3">
                 <label for="form-label" class="form-control">댓글 내용</label>
                 <textarea type="text" class="form-control" rows="3" id="new-comment-body"></textarea>
@@ -22,7 +22,7 @@
         const commentCreateBtn = document.querySelector("#comment-create-btn");
         commentCreateBtn.addEventListener("click", function() {
             const comment = {
-            nickname: document.querySelector("#new-comment-nickname").value,
+            //nickname: document.querySelector("#new-comment-nickname").value,
             body: document.querySelector("#new-comment-body").value,
             boardId: document.querySelector("#new-comment-board-id").value
             };

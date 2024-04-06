@@ -3,6 +3,8 @@ package com.example.market.model.dto;
 import com.example.market.model.entity.Board;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -14,6 +16,7 @@ public class BoardDto {
     private String title;
     private String content;
     private MemberDto author;
+    private LocalDateTime createdAt;
 
     public static BoardDto toDto(Board board) {
         return BoardDto.builder()
@@ -21,6 +24,7 @@ public class BoardDto {
                 .title(board.getTitle())
                 .content(board.getContent())
                 .author(MemberDto.toDto(board.getMember()))
+                .createdAt(board.getCreatedAt())
                 .build();
     }
 }

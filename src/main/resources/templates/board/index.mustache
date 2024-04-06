@@ -1,24 +1,28 @@
 {{>layouts/header}}
-<table class="table">
-    <thead>
-    <tr>
-        <th scope="col">Id</th>
-        <th scope="col">Title</th>
-        <th scope="col">Author</th>
-        <th scope="col">Content</th>
-    </tr>
-    </thead>
-    <tbody>
-    {{#boardList}}
+<div class="container my-3">
+    <table class="table">
+        <thead class="table-dark">
         <tr>
-            <th>{{id}}</th>
-            <td><a href="/board/{{id}}">{{title}}</a></td>
-            <td>{{author.nickname}}</td>
-            <td>{{content}}</td>
+            <th scope="col">Id</th>
+            <th scope="col">Title</th>
+            <th scope="col">Author</th>
+            <th scope="col">Content</th>
+            <th scope="col">작성시간</th>
         </tr>
-    {{/boardList}}
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        {{#boardList}}
+            <tr>
+                <th>{{id}}</th>
+                <td><a href="/board/{{id}}">{{title}}</a></td>
+                <td>{{author.nickname}}</td>
+                <td>{{content}}</td>
+                <td>{{createdAt}}</td>
+            </tr>
+        {{/boardList}}
+        </tbody>
+    </table>
+</div>
 {{#userId}}
     <a href="/board/new">New Board</a>
 {{/userId}}

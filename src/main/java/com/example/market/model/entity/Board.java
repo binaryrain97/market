@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,6 +28,8 @@ public class Board {
 
     @ManyToOne
     private Member member;
+
+    private LocalDateTime createdAt;
 
     public void patch(BoardForm form) {
         if(form.getTitle() != null) this.title = form.getTitle();
