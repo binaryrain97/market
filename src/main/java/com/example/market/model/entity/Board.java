@@ -27,7 +27,7 @@ public class Board {
     private String content;
 
     @ManyToOne
-    private Member member;
+    private Member author;
 
     private LocalDateTime createdAt;
 

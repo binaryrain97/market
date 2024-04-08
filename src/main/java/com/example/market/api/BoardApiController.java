@@ -6,8 +6,10 @@ import com.example.market.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -25,13 +27,15 @@ public class BoardApiController {
         return this.boardService.getDetail(id);
     }
 
-//    @PostMapping("/api/board")
-//    public ResponseEntity<BoardDto> create(@RequestBody BoardForm form) {
-//        BoardDto created = this.boardService.createBoard(form);
-//        return (created != null) ?
-//                ResponseEntity.status(HttpStatus.OK).body(created):
-//                ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-//    }
+    @PostMapping("/api/board")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<BoardDto> create(@RequestBody BoardForm form,
+                                           Principal principal) {
+        BoardDto created = this.boardService.createBoard(form, principal.getName());
+        return (created != null) ?
+                ResponseEntity.status(HttpStatus.OK).body(created):
+                ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
 
     @PatchMapping("/api/board/{id}")
     public ResponseEntity<BoardDto> update(@PathVariable Long id,

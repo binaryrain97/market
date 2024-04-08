@@ -8,6 +8,7 @@ import com.example.market.repository.BoardRepository;
 import com.example.market.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,11 +21,17 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private final MemberRepository memberRepository;
 
+    @Transactional
     public BoardDto createBoard(BoardForm form, String userId) {
         Optional<Member> _member = this.memberRepository.findByUserId(userId);
-        if(_member.isEmpty()) throw new RuntimeException("잘못된 세션");
+        if(_member.isEmpty()) return null;
         Member member = _member.get();
-        Board board = new Board(null, form.getTitle(), form.getContent(), member, LocalDateTime.now());
+        Board board = Board.builder()
+                .title(form.getTitle())
+                .content(form.getContent())
+                .createdAt(LocalDateTime.now())
+                .author(member)
+                .build();
         return BoardDto.toDto(boardRepository.save(board));
     }
 

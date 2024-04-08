@@ -23,7 +23,7 @@ public class BoardDto {
                 .id(board.getId())
                 .title(board.getTitle())
                 .content(board.getContent())
-                .author(MemberDto.toDto(board.getMember()))
+                .author(MemberDto.toDto(board.getAuthor()))
                 .createdAt(board.getCreatedAt())
                 .build();
     }
