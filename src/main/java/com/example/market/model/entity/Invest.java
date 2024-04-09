@@ -15,9 +15,6 @@ import java.time.LocalDate;
 @Builder
 public class Invest {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     private LocalDate date;
 
     private Long money;

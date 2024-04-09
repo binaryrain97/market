@@ -9,20 +9,15 @@
         </tr>
         </thead>
         <tbody>
-<!--        {{#boardList}}-->
-<!--            <tr>-->
-<!--                <th>{{id}}</th>-->
-<!--                <td><a href="/board/{{id}}">{{title}}</a></td>-->
-<!--                <td>{{author.nickname}}</td>-->
-<!--                <td>{{content}}</td>-->
-<!--                <td>{{createdAt}}</td>-->
-<!--            </tr>-->
-<!--        {{/boardList}}-->
+        {{#investList}}
+            <tr>
+                <td>{{date}}</td>
+                <td>{{money}}</td>
+                <td>null</td>
+            </tr>
+        {{/investList}}
         </tbody>
     </table>
 </div>
-{{#userId}}
-    <a href="/board/new">New Board</a>
-{{/userId}}
-
+{{>invest/_new}}
 {{>layouts/footer}}
