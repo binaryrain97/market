@@ -1,8 +1,8 @@
 package com.example.market.controller;
 
 
-import com.example.market.model.dto.InvestDto;
-import com.example.market.service.InvestService;
+import com.example.market.model.dto.DailyRecordDto;
+import com.example.market.service.DailyRecordService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,26 +19,24 @@ import java.util.List;
 @RequestMapping("/invest")
 @RequiredArgsConstructor
 @Slf4j
-public class InvestController {
+public class DailyRecordController {
 
-    private final InvestService investService;
+    private final DailyRecordService dailyRecordService;
 
     @GetMapping("/record")
     @PreAuthorize("isAuthenticated()")
     public String record(Principal principal,
                          Model model) {
-        List<InvestDto> investDtoList = investService.getInvestList(principal.getName());
-        model.addAttribute("investList", investDtoList);
+        List<DailyRecordDto> dailyRecordList = dailyRecordService.getInvestList(principal.getName());
+        model.addAttribute("dailyRecordList", dailyRecordList);
         return "invest/record";
     }
 
     @PostMapping("/record/new")
     @PreAuthorize("isAuthenticated()")
-    public String createRecord(InvestDto dto,
+    public String createRecord(DailyRecordDto dto,
                                Principal principal) {
-        System.out.println("test");
-        investService.createRecord(dto, principal.getName());
-        System.out.println("success");
+        dailyRecordService.createRecord(dto, principal.getName());
         return "redirect:/invest/record";
     }
 }

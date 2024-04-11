@@ -26,4 +26,7 @@ public class Member {
 
     @OneToMany
     private List<Board> boardList;
+
+    @OneToMany
+    private List<DailyRecord> recordList;
 }

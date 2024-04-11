@@ -4,18 +4,24 @@
         <thead class="table-dark">
         <tr>
             <th scope="col">날짜</th>
+            <th scope="col">입금</th>
+            <th scope="col">출금</th>
             <th scope="col">총액</th>
             <th scope="col">전일대비 수익</th>
+            <th scope="col">누적 수익</th>
         </tr>
         </thead>
         <tbody>
-        {{#investList}}
+        {{#dailyRecordList}}
             <tr>
                 <td>{{date}}</td>
-                <td>{{money}}</td>
-                <td>null</td>
+                <td>{{deposit}}</td>
+                <td>{{withdrawal}}</td>
+                <td>{{currentMoney}}</td>
+                <td>{{dailyProfit}}</td>
+                <td>{{totalProfit}}</td>
             </tr>
-        {{/investList}}
+        {{/dailyRecordList}}
         </tbody>
     </table>
 </div>
