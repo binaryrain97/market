@@ -33,4 +33,11 @@ public class MemberService {
         Member member = _member.get();
         return MemberDto.toDto(member);
     }
+
+    public MemberDto findMemberByEmail(String email) {
+        Optional<Member> _member = this.memberRepository.findByEmail(email);
+        if(_member.isEmpty()) throw new RuntimeException("찾을 수 없는 회원입니다.");
+        Member member = _member.get();
+        return MemberDto.toDto(member);
+    }
 }

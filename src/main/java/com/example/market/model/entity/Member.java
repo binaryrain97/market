@@ -21,6 +21,8 @@ public class Member {
 
     private String password;
 
+    private String email;
+
     @OneToMany
     private List<Invest> investList;
 
