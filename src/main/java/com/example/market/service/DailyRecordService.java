@@ -44,7 +44,7 @@ public class DailyRecordService {
     }
 
     public void createRecord(DailyRecordDto dto, String userId) {
-        Optional<Member> _member = this.memberRepository.findByUserId(userId);
+        Optional<Member> _member = this.memberRepository.findById(userId);
         if(_member.isEmpty()) throw new RuntimeException();
         Member member = _member.get();
         DailyRecord record = new DailyRecord(

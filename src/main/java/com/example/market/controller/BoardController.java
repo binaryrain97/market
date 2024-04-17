@@ -46,7 +46,7 @@ public class BoardController {
         List<BoardDto> dtoList = this.boardService.getIndex();
         model.addAttribute("boardList", dtoList);
         if(principal != null) {
-            model.addAttribute("userId", principal.getName());
+            model.addAttribute("id", principal.getName());
         }
         return "board/index";
     }

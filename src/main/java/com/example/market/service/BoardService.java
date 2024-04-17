@@ -23,7 +23,7 @@ public class BoardService {
 
     @Transactional
     public BoardDto createBoard(BoardForm form, String userId) {
-        Optional<Member> _member = this.memberRepository.findByUserId(userId);
+        Optional<Member> _member = this.memberRepository.findById(userId);
         if(_member.isEmpty()) return null;
         Member member = _member.get();
         Board board = Board.builder()

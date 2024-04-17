@@ -17,18 +17,20 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public MemberDto create(String userId, String nickname, String password) {
+    public MemberDto create(MemberDto.MemberForm form) {
+
         Member member = Member.builder()
-                .userId(userId)
-                .nickname(nickname)
-                .password(passwordEncoder.encode(password))
+                .id(form.getId())
+                .nickname(form.getNickname())
+                .password(passwordEncoder.encode(form.getPassword()))
+                .email(form.getEmail())
                 .build();
         Member created = this.memberRepository.save(member);
         return MemberDto.toDto(created);
     }
 
     public MemberDto getMember(String userId) {
-        Optional<Member> _member = this.memberRepository.findByUserId(userId);
+        Optional<Member> _member = this.memberRepository.findById(userId);
         if(_member.isEmpty()) throw new RuntimeException("찾을 수 없는 회원입니다.");
         Member member = _member.get();
         return MemberDto.toDto(member);

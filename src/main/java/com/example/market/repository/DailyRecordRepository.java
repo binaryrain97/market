@@ -8,6 +8,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface DailyRecordRepository extends JpaRepository<DailyRecord, LocalDate> {
-    @Query("SELECT r FROM DailyRecord r WHERE r.investor.userId = :userId")
+    @Query("SELECT r FROM DailyRecord r WHERE r.investor.id = :userId")
     List<DailyRecord> findAllByUserId(String userId);
 }

@@ -2,15 +2,23 @@
 <form class="container" action="/member/new" method="post">
     <div class="mb-3">
         <label class="form-label">새로운 아이디</label>
-        <input type="text" class="form-control" name="userId">
+        <input type="text" class="form-control" name="id">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">비밀번호</label>
+        <input type="text" class="form-control" name="password">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">닉네임</label>
+        <input type="text" class="form-control" name="password2">
     </div>
     <div class="mb-3">
         <label class="form-label">닉네임</label>
         <input type="text" class="form-control" name="nickname">
     </div>
     <div class="mb-3">
-        <label class="form-label">비밀번호</label>
-        <input type="text" class="form-control" name="password">
+        <label class="form-label">닉네임</label>
+        <input type="email" class="form-control" name="email">
     </div>
     <button type="submit" class="btn btn-primary">회원가입</button>
     <a href="/board/list">Back</a>

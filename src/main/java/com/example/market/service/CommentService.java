@@ -30,7 +30,7 @@ public class CommentService {
     public CommentDto create(Long boardId, CommentDto dto, String userId) {
         Board board = this.boardRepository.findById(boardId)
                 .orElseThrow(() -> new IllegalArgumentException("댓글 생성 실패"));
-        Member member = this.memberRepository.findByUserId(userId)
+        Member member = this.memberRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("댓글 생성 실패"));
         dto.setNickname(member.getNickname());
         Comment comment = Comment.createComment(dto, board);

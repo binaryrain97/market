@@ -7,9 +7,10 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.Optional;
 
 public interface MemberRepository extends JpaRepository<Member, Long> {
-    @Query("SELECT m FROM Member m WHERE m.userId = :userId")
-    Optional<Member> findByUserId(String userId);
-
+    @Query("SELECT m FROM Member m WHERE m.id = :id")
+    Optional<Member> findById(String id);
     @Query("SELECT m FROM Member m WHERE m.email = :email")
     Optional<Member> findByEmail(String email);
+    @Query("SELECT m FROM Member m WHERE m.nickname = :nickname")
+    Optional<Member> findByNickname(String nickname);
 }

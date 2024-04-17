@@ -15,7 +15,7 @@ import java.util.List;
 @Builder
 public class Member {
     @Id
-    private String userId;
+    private String id;
 
     private String nickname;
 

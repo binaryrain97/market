@@ -24,10 +24,11 @@ public class SecurityConfig {
                         .requestMatchers(new AntPathRequestMatcher("/**")).permitAll())
                 .formLogin((formLogin) -> formLogin
                         .loginPage("/member/login")
-                        .usernameParameter("userId")
+                        .usernameParameter("id")
                         .passwordParameter("password")
-                        .loginProcessingUrl("/member/login")
-                        .defaultSuccessUrl("/"))
+                        .loginProcessingUrl("/member/login") //form post
+                        .defaultSuccessUrl("/")
+                        .permitAll())
                 .logout((logout) -> logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
                         .logoutSuccessUrl("/")

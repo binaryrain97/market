@@ -16,9 +16,19 @@ public class MemberDto {
 
     public static MemberDto toDto(Member member) {
         return MemberDto.builder()
-                .userId(member.getUserId())
+                .userId(member.getId())
                 .nickname(member.getNickname())
                 .password(member.getPassword())
                 .build();
+    }
+
+    @Getter
+    @Setter
+    public static class MemberForm {
+        private String id;
+        private String password;
+        private String password2;
+        private String nickname;
+        private String email;
     }
 }
