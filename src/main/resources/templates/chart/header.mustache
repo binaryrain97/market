@@ -1,0 +1,74 @@
+{{>layouts/header}}
+
+<!-- TradingView Widget BEGIN -->
+<div class="tradingview-widget-container">
+    <div class="tradingview-widget-container__widget"></div>
+    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+        {
+        "symbols": [
+          {
+            "description": "코스피",
+            "proName": "KRX:KOSPI"
+          },
+          {
+            "description": "코스닥",
+            "proName": "KRX:KOSDAQ"
+          },
+          {
+            "description": "나스닥",
+            "proName": "FOREXCOM:NAS100"
+          },
+          {
+            "description": "S&P500",
+            "proName": "FOREXCOM:SPX500"
+          },
+          {
+            "description": "비트코인",
+            "proName": "BINANCE:BTCUSDT"
+          },
+          {
+            "description": "이더리움",
+            "proName": "BINANCE:ETHUSDT"
+          },
+          {
+            "description": "독일",
+            "proName": "FOREXCOM:GER40"
+          },
+          {
+            "description": "일본",
+            "proName": "FOREXCOM:JP225"
+          },
+          {
+            "description": "홍콩",
+            "proName": "FOREXCOM:HK50"
+          },
+          {
+            "description": "중국",
+            "proName": "FOREXCOM:CHINA50"
+          },
+          {
+            "description": "호주",
+            "proName": "FOREXCOM:AUS200"
+          },
+          {
+            "description": "프랑스",
+            "proName": "FOREXCOM:FRA40"
+          },
+          {
+            "description": "영국",
+            "proName": "FOREXCOM:UK100"
+          },
+          {
+            "description": "싱가폴",
+            "proName": "FOREXCOM:SIGI30"
+          }
+        ],
+        "showSymbolLogo": false,
+        "isTransparent": true,
+        "displayMode": "compact",
+        "colorTheme": "dark",
+        "locale": "en"
+      }
+    </script>
+</div>
+<!-- TradingView Widget END -->

@@ -23,7 +23,7 @@ public class FirstController {
 
     @GetMapping("/")
     public String home() {
-        return "redirect:/board/list";
+        return "redirect:/chart/view";
     }
 
     @GetMapping("/home")
