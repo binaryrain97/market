@@ -3,9 +3,10 @@
     <table class="table">
         <thead class="table-dark">
         <tr>
-            <th scope="col">번호</th>
-            <th scope="col">제목</th>
-            <th scope="col">작성자</th>
+            <th scope="col">Id</th>
+            <th scope="col">Title</th>
+            <th scope="col">Author</th>
+            <th scope="col">Content</th>
             <th scope="col">작성시간</th>
         </tr>
         </thead>
@@ -13,19 +14,14 @@
         {{#boardList}}
             <tr>
                 <th>{{id}}</th>
-                <td>
-                    <a href="/board/{{id}}">{{title}}</a>
-                    {{#commentCount}}
-                        <span class="badge bg-info text-dark">{{commentCount}}</span>
-                    {{/commentCount}}
-                </td>
+                <td><a href="/board/{{id}}">{{title}}</a></td>
                 <td>{{author.nickname}}</td>
+                <td>{{content}}</td>
                 <td>{{createdAt}}</td>
             </tr>
         {{/boardList}}
         </tbody>
     </table>
 </div>
-<a href="/board/new">New Board</a>
 
 {{>layouts/footer}}

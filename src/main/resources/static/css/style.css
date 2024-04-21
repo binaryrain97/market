@@ -1,1 +1,11 @@
 body {background-color: black;}
+.chart-view-total {
+	width: 1500px;
+	background-color: #464646;
+  margin: 0 auto;
+}
+.tradingview-widget-container {
+  height: 550px;
+	width: 700px;
+  margin: 20px;
+}

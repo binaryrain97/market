@@ -29,6 +29,7 @@ public class BoardController {
     private final CommentService commentService;
 
     @GetMapping("/new")
+    @PreAuthorize("isAuthenticated()")
     public String newBoardForm() {
         return "board/new";
     }
@@ -49,6 +50,17 @@ public class BoardController {
             model.addAttribute("id", principal.getName());
         }
         return "board/index";
+    }
+
+    @GetMapping("/my")
+    @PreAuthorize("isAuthenticated()")
+    public String myList(Principal principal, Model model) {
+        List<BoardDto> dtoList = this.boardService.getMyBoardList(principal.getName());
+        model.addAttribute("boardList", dtoList);
+        if(principal != null) {
+            model.addAttribute("id", principal.getName());
+        }
+        return "board/my";
     }
 
     @GetMapping("/{id}")

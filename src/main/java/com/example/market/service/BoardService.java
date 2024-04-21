@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -31,6 +32,7 @@ public class BoardService {
                 .content(form.getContent())
                 .createdAt(LocalDateTime.now())
                 .author(member)
+                .commentList(new ArrayList<>())
                 .build();
         return BoardDto.toDto(boardRepository.save(board));
     }
@@ -61,5 +63,10 @@ public class BoardService {
         if(target == null) return null;
         this.boardRepository.delete(target);
         return BoardDto.toDto(target);
+    }
+
+    public List<BoardDto> getMyBoardList(String memberId) {
+        return this.boardRepository.findAllByMemberId(memberId)
+                .stream().map(BoardDto::toDto).toList();
     }
 }

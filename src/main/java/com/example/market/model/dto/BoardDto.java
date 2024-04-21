@@ -17,6 +17,7 @@ public class BoardDto {
     private String content;
     private MemberDto author;
     private LocalDateTime createdAt;
+    private Integer commentCount;
 
     public static BoardDto toDto(Board board) {
         return BoardDto.builder()
@@ -25,6 +26,7 @@ public class BoardDto {
                 .content(board.getContent())
                 .author(MemberDto.toDto(board.getAuthor()))
                 .createdAt(board.getCreatedAt())
+                .commentCount(board.getCommentList().size())
                 .build();
     }
 }
