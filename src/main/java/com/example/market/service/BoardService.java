@@ -7,6 +7,9 @@ import com.example.market.model.entity.Member;
 import com.example.market.repository.BoardRepository;
 import com.example.market.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -68,5 +71,10 @@ public class BoardService {
     public List<BoardDto> getMyBoardList(String memberId) {
         return this.boardRepository.findAllByMemberId(memberId)
                 .stream().map(BoardDto::toDto).toList();
+    }
+
+    public Page<Board> getListOnPage(int page) {
+        Pageable pageable = PageRequest.of(page, 10);
+        return this.boardRepository.findAllOnPage(pageable);
     }
 }
